@@ -16,7 +16,6 @@ public class MusicTagsParser {
 
 	public void parse(IndexWriter w, File file) {
 
-
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 
