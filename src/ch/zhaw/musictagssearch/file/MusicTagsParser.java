@@ -24,11 +24,13 @@ public class MusicTagsParser {
 
 			while ((line = reader.readLine()) != null) {
 				String[] splittedTAgs = line.split("-");
-				System.out.println(line = reader.readLine());
+				//System.out.println(line = reader.readLine());
 				tags(w, splittedTAgs);
 				lines++;
 			}
+			
 			System.out.println(lines + " songs");
+			w.commit();
 		    w.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -39,6 +41,8 @@ public class MusicTagsParser {
 		//  %title%  -  %artist%  -  %album%   -   %genre%  -  %track%  -  %year%
 		if (splittedTAgs.length == TAGS_COUNT) {
 			Document doc = new Document();
+			
+			//StringField vs TextField: In the above example, the "id" field contains the ID of the hotel, which is a single atomic value. In contrast, the "description" field contains an English text, which should be parsed (or "tokenized") into a set of words for indexing. Use StringField for a field with an atomic value that should not be tokenized. Use TextField for a field that needs to be tokenized into a set of words. 
 			doc.add(new TextField("title", splittedTAgs[0], Field.Store.YES));
 			doc.add(new TextField("artist", splittedTAgs[1], Field.Store.YES));
 			doc.add(new TextField("album", splittedTAgs[2], Field.Store.YES));

@@ -21,7 +21,6 @@ public class SearchFrame implements Output{
 	private JFrame frame;
 	private GridBagManager guiManager;
 	private JLabel lbSearchDesc;
-	private JTextField tfAttribut;
 	private JTextField tfValue;
 	private JTextArea ta;
 	private JButton btSearch;
@@ -33,7 +32,6 @@ public class SearchFrame implements Output{
 		this.guiManager = new GridBagManager(frame);
 		this.lbSearchDesc = new JLabel("Suchtext eingeben");
 		this.lbResult = new JLabel("Ergebnis");
-		this.tfAttribut= new JTextField("genre");
 		this.tfValue= new JTextField("Metal");
 		this.ta = new JTextArea();
 		this.btSearch = new JButton("Suche");
@@ -51,9 +49,10 @@ public class SearchFrame implements Output{
 		lbResult.setForeground(Color.WHITE);
 		
 		guiManager.setX(0).setY(0).setWeightY(0).setHeight(1).setComp(lbSearchDesc);
-		guiManager.setX(0).setY(1).setWeightY(0).setWeightX(2).setHeight(1).setComp(tfAttribut);
-		guiManager.setX(1).setY(1).setWeightY(0).setWeightX(2).setHeight(1).setComp(tfValue);
+		
+		guiManager.setX(0).setY(1).setWeightY(0).setWeightX(3).setHeight(1).setComp(tfValue);
 		guiManager.setX(4).setY(1).setWeightY(0).setHeight(1).setComp(btSearch);
+		
 		guiManager.setX(0).setY(2).setWeightY(2).setHeight(2).setComp(new JLabel(""));
 		guiManager.setX(0).setY(4).setWidth(5).setWeightY(0).setHeight(1).setComp(lbResult);
 		guiManager.setX(0).setY(5).setWidth(5).setWeightY(8).setHeight(8).setScrollPanel().setComp(ta);
@@ -69,7 +68,7 @@ public class SearchFrame implements Output{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					lh.analyze(tfAttribut.getText(), tfValue.getText());
+					lh.analyze(tfValue.getText());
 				} catch (ParseException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
@@ -77,7 +76,6 @@ public class SearchFrame implements Output{
 				}
 			}
 		});
-		//frame.setUndecorated(true);
 	}
 
 	@Override

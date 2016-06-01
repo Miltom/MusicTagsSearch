@@ -15,11 +15,21 @@ public class MainMusicTagsSearch {
 
 	public static void main(String[] args) {
 
+		
+		/*
+		ProcessBuilder pb = new ProcessBuilder("C:\\Program Files (x86)\\VideoLAN\\VLC\\vlc.exe", "filepfad");
+		try {
+			Process start = pb.start();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}*/
+		
 		try {
 
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             
-			LuceneHelper lh;
+            LuceneHelper lh;
 			if (args.length==0) {
 				SearchFrame sf = new SearchFrame();
 				sf.show();
@@ -29,7 +39,7 @@ public class MainMusicTagsSearch {
 			} else {
 
 				lh = new LuceneHelper(new CommandWindow());
-				lh.analyze(args[1], args[2]);
+				lh.analyze( args[2]);
 			}
 
 		} catch (IOException | ParseException | ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
