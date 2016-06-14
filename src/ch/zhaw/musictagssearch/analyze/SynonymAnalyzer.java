@@ -13,7 +13,7 @@ import org.apache.lucene.analysis.synonym.SynonymFilter;
 import org.apache.lucene.analysis.synonym.SynonymMap;
 import org.apache.lucene.util.CharsRef;
 
-public class SynonymAnalyzer extends Analyzer {
+public class SynonymAnalyzer extends Analyzer  {
 	private SynonymMap synonymMap;
 
 	public SynonymAnalyzer() {
@@ -26,8 +26,33 @@ public class SynonymAnalyzer extends Analyzer {
 
 	public void init() throws IOException  {
 		SynonymMap.Builder sbuilder = new SynonymMap.Builder(true);
-		sbuilder.add(new CharsRef("Salsa"), new CharsRef("Latin"), false);
+		sbuilder.add(new CharsRef("Salsamusik"), new CharsRef("Salsa Cubana"), false);
+		sbuilder.add(new CharsRef("Salsamusik"), new CharsRef("Salsa Puertoricana"), false);
+		sbuilder.add(new CharsRef("Salsamusik"), new CharsRef("Salsa"), false);
+		sbuilder.add(new CharsRef("Salsamusik"), new CharsRef("Latin House"), false);
+		sbuilder.add(new CharsRef("Salsamusik"), new CharsRef("Latin"), false);
+
+		sbuilder.add(new CharsRef("Latinmusik"), new CharsRef("Bachata"), false);
+		sbuilder.add(new CharsRef("Latinmusik"), new CharsRef("Kizomba"), false);
+		sbuilder.add(new CharsRef("Latinmusik"), new CharsRef("Latin"), false);
+		sbuilder.add(new CharsRef("Latinmusik"), new CharsRef("Reggaeton"), false);
+		sbuilder.add(new CharsRef("Latinmusik"), new CharsRef("Salsa Cubana"), false);
+		sbuilder.add(new CharsRef("Latinmusik"), new CharsRef("Salsa Puertoricana"), false);
+		sbuilder.add(new CharsRef("Latinmusik"), new CharsRef("Salsa"), false);
+		sbuilder.add(new CharsRef("Latinmusik"), new CharsRef("Latin House"), false);
+		
 		sbuilder.add(new CharsRef("Mitsingen"), new CharsRef("Pop"), false);
+		sbuilder.add(new CharsRef("Mitsingen"), new CharsRef("Funk"), false);
+		
+		sbuilder.add(new CharsRef("Tanzmusik"), new CharsRef("Bachata"), false);
+		sbuilder.add(new CharsRef("Tanzmusik"), new CharsRef("Kizomba"), false);
+		sbuilder.add(new CharsRef("Tanzmusik"), new CharsRef("Salsa"), false);
+		sbuilder.add(new CharsRef("Tanzmusik"), new CharsRef("Latin"), false);
+		sbuilder.add(new CharsRef("Tanzmusik"), new CharsRef("Reggaeton"), false);
+		sbuilder.add(new CharsRef("Tanzmusik"), new CharsRef("Salsa Cubana"), false);
+		sbuilder.add(new CharsRef("Tanzmusik"), new CharsRef("Salsa Puertoricana"), false);
+		sbuilder.add(new CharsRef("Tanzmusik"), new CharsRef("Salsa"), false);
+		sbuilder.add(new CharsRef("Tanzmusik"), new CharsRef("Latin House"), false);
 		sbuilder.add(new CharsRef("Tanzmusik"), new CharsRef("Funk"), false);
 		synonymMap = sbuilder.build();
 	}

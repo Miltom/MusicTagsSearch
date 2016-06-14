@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.miscellaneous.PerFieldAnalyzerWrapper;
@@ -28,7 +29,7 @@ import ch.zhaw.musictagssearch.example.Output;
 import ch.zhaw.musictagssearch.file.MusicTagsParser;
 
 public class LuceneHelper {
-	private static File file = new File("D:\\Studium\\4.Studienjahr\\MusicTagsSearch\\Music\\test.txt");
+	private static File file = new File("D:\\Studium\\4.Studienjahr\\MusicTagsSearch\\Music\\Music_Tag_Search_Export.txt");
 
 	private static final int HITS_PER_PAGE = 1000;
 
@@ -41,8 +42,9 @@ public class LuceneHelper {
 	}
 
 	
-	public void analyze(String searchValue) throws ParseException, IOException {
+	public void analyze(String searchValue) throws  IOException, ParseException {
 
+		output.clearOutput();
 		Directory index = new RAMDirectory();
 		Map<String, Analyzer> analyzerPerField = new HashMap<String, Analyzer>();
 		analyzerPerField.put("title", new StandardAnalyzer());
@@ -59,10 +61,8 @@ public class LuceneHelper {
 		.setOpenMode(OpenMode.CREATE);
 		
 		IndexWriter indexWriter = new IndexWriter(index, config);
-		output.clearOutput();
 		mtp.parse(indexWriter, file);
 
-		StringBuilder builder = new StringBuilder();
 		String querystr = !searchValue.equals("")  ? searchValue : "Metal";
 			
 		IndexReader reader = DirectoryReader.open(index);
@@ -73,22 +73,18 @@ public class LuceneHelper {
 		IndexSearcher searcher = new IndexSearcher(reader);
 		TopDocs docs = searcher.search(query, HITS_PER_PAGE);
 		 
-		Document d ;
 		System.out.println("Total: "+docs.totalHits);
 		
-				
+		Vector<Document> resultDocs = new Vector<Document>();
+			
 		for (final ScoreDoc scoreDoc : docs.scoreDocs) {
-			 d =  searcher.doc(scoreDoc.doc);
-			builder.append(d.get("title") + "\t" + d.get("artist") + "\t" + d.get("album") + "\t" + d.get("genre") + "\t" + d.get("track") + "\t" + d.get("year")+"\n");
+			resultDocs.add(searcher.doc(scoreDoc.doc));
 		}
-		System.out.println("builder.toString() "+builder.toString());
 		
-		output.outputResult(builder);
+		output.outputResult(resultDocs);
 
 		reader.close();
 		index.close();
 	}
-	
-	
 	
 }

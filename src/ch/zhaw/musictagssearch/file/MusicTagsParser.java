@@ -12,7 +12,7 @@ import org.apache.lucene.index.IndexWriter;
 
 public class MusicTagsParser {
 
-	private final static int TAGS_COUNT = 6;
+	private final static int TAGS_COUNT = 7;
 
 	public void parse(IndexWriter w, File file) {
 
@@ -23,8 +23,7 @@ public class MusicTagsParser {
 			int lines = 0;
 
 			while ((line = reader.readLine()) != null) {
-				String[] splittedTAgs = line.split("-");
-				//System.out.println(line = reader.readLine());
+				String[] splittedTAgs = line.split("#");
 				tags(w, splittedTAgs);
 				lines++;
 			}
@@ -49,6 +48,7 @@ public class MusicTagsParser {
 			doc.add(new TextField("genre", splittedTAgs[3], Field.Store.YES));
 			doc.add(new TextField("track", splittedTAgs[4], Field.Store.YES));
 			doc.add(new TextField("year", splittedTAgs[5], Field.Store.YES));
+			doc.add(new TextField("musicpath", splittedTAgs[6], Field.Store.YES));
 			w.addDocument(doc);
 		}
 	}
